@@ -110,6 +110,10 @@ class Calculator extends Component {
     });
   };
 
+  saveOperator = (operator) => {
+    this.setState({ operator: operator });
+  };
+
   syntasisError = () => {
     this.setState({
       operand1: "",
@@ -117,6 +121,27 @@ class Calculator extends Component {
       operator: "",
       ans: "Syn Error",
     });
+  };
+
+  clearAll = () => {
+    this.setState({
+      operand1: "",
+      operand2: "",
+      operator: "",
+      ans: "_",
+    });
+  };
+
+  removeNumber = (operand1) => {
+    if (operand1.length !== 0) {
+      operand1 = operand1.substring(0, operand1.length - 1);
+
+      if (operand1.length === 0) {
+        this.setState({ operand1: operand1, ans: "_" });
+      } else {
+        this.setState({ operand1: operand1, ans: operand1 });
+      }
+    }
   };
 
   //==================================== HANDLERS
@@ -127,22 +152,8 @@ class Calculator extends Component {
       // * Save the number typed
       this.saveNumber(item, operand1);
     } else if (this.isOperator(item)) {
-      // // * Pass value operand1 to operand2
-      // if (operand1 !== "" && operand2 === "" && operator === "") {
-      //   this.saveOperand2(operand1, item);
-      //   // * Execure pre-operation
-      // } else if (operand1 !== "" && operand2 !== "" && operator !== "") {
-      //   this.setState({
-      //     operand1: "",
-      //     operand2: this.executeOperation(
-      //       operand1,
-      //       operand2,
-      //       operator
-      //     ).toString(),
-      //     operator: item,
-      //     ans: "_",
-      //   });
-      // }
+      // * Save operator
+      this.saveOperator(item);
     } else if (item === "=") {
       // * Nothing
       if (operand1 === "" && operand2 === "" && operator === "") {
@@ -151,11 +162,14 @@ class Calculator extends Component {
       else if (operand1 === "" && operand2 === "" && operator !== "") {
         this.syntasisError();
       }
-
       // * Calculate answer
       else if (operand1 !== "" && operand2 !== "" && operator !== "") {
         this.saveAnswer(operand1, operand2, operator);
       }
+    } else if (item === "CE") {
+      this.clearAll();
+    } else if (item === "Del") {
+      this.removeNumber(operand1);
     }
   };
 
