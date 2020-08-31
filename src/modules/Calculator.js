@@ -110,8 +110,8 @@ class Calculator extends Component {
     });
   };
 
-  saveOperator = (operator) => {
-    this.setState({ operator: operator });
+  saveOperator = (operator, operand1) => {
+    this.setState({ operator: operator, operand2: operand1, operand1: "" });
   };
 
   syntasisError = () => {
@@ -152,14 +152,21 @@ class Calculator extends Component {
       // * Save the number typed
       this.saveNumber(item, operand1);
     } else if (this.isOperator(item)) {
-      // * Save operator
-      this.saveOperator(item);
+      if (operator === "") {
+        // * Save operator
+        this.saveOperator(item, operand1);
+      } else {
+        // * Pre calculate
+      }
     } else if (item === "=") {
       // * Nothing
       if (operand1 === "" && operand2 === "" && operator === "") {
       }
       // * Syntasis Err
-      else if (operand1 === "" && operand2 === "" && operator !== "") {
+      else if (
+        (operand1 === "" && operand2 === "" && operator !== "") ||
+        (operand1 === "" && operand2 !== "" && operator !== "")
+      ) {
         this.syntasisError();
       }
       // * Calculate answer
