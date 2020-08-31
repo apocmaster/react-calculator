@@ -98,6 +98,27 @@ class Calculator extends Component {
       ans: "_",
     });
   };
+
+  saveAnswer = (operand1, operand2, operator) => {
+    var temp = this.executeOperation(operand2, operand1, operator).toString();
+
+    this.setState({
+      operand1: "",
+      operand2: "",
+      operator: "",
+      ans: temp,
+    });
+  };
+
+  syntasisError = () => {
+    this.setState({
+      operand1: "",
+      operand2: "",
+      operator: "",
+      ans: "Syn Error",
+    });
+  };
+
   //==================================== HANDLERS
   buttonHandler = (item) => {
     var { operand1, operand2, operator } = this.state;
@@ -106,37 +127,34 @@ class Calculator extends Component {
       // * Save the number typed
       this.saveNumber(item, operand1);
     } else if (this.isOperator(item)) {
-      // * Pass value operand1 to operand2
-      if (operand1 !== "" && operand2 === "" && operator === "") {
-        this.saveOperand2(operand1, operator);
-        // * Execure pre-operation
-      } else if (operand1 !== "" && operand2 !== "" && operator !== "") {
-        this.setState({
-          operand1: "",
-          operand2: this.executeOperation(
-            operand1,
-            operand2,
-            operator
-          ).toString(),
-          operator: item,
-          ans: "_",
-        });
-      }
+      // // * Pass value operand1 to operand2
+      // if (operand1 !== "" && operand2 === "" && operator === "") {
+      //   this.saveOperand2(operand1, item);
+      //   // * Execure pre-operation
+      // } else if (operand1 !== "" && operand2 !== "" && operator !== "") {
+      //   this.setState({
+      //     operand1: "",
+      //     operand2: this.executeOperation(
+      //       operand1,
+      //       operand2,
+      //       operator
+      //     ).toString(),
+      //     operator: item,
+      //     ans: "_",
+      //   });
+      // }
     } else if (item === "=") {
-      // * Calculate answer
-      if (operand1 !== "" && operand2 !== "" && operator !== "") {
-        var temp = this.executeOperation(
-          operand1,
-          operand2,
-          operator
-        ).toString();
+      // * Nothing
+      if (operand1 === "" && operand2 === "" && operator === "") {
+      }
+      // * Syntasis Err
+      else if (operand1 === "" && operand2 === "" && operator !== "") {
+        this.syntasisError();
+      }
 
-        this.setState({
-          operand1: "",
-          operand2: temp,
-          operator: "",
-          ans: temp,
-        });
+      // * Calculate answer
+      else if (operand1 !== "" && operand2 !== "" && operator !== "") {
+        this.saveAnswer(operand1, operand2, operator);
       }
     }
   };
