@@ -110,8 +110,28 @@ class Calculator extends Component {
     });
   };
 
-  saveOperator = (operator, operand1) => {
-    this.setState({ operator: operator, operand2: operand1, operand1: "" });
+  savePreAnswer = (operand1, operand2, operator, item) => {
+    var temp = this.executeOperation(operand2, operand1, operator).toString();
+
+    this.setState({
+      operand1: "",
+      operand2: temp,
+      operator: item,
+      ans: "_",
+    });
+  };
+
+  saveOperator = (operator, operand1, clear = false) => {
+    if (clear) {
+      this.setState({
+        operator: operator,
+        operand2: operand1,
+        operand1: "",
+        ans: "_",
+      });
+    } else {
+      this.setState({ operator: operator, operand2: operand1, operand1: "" });
+    }
   };
 
   syntasisError = () => {
@@ -152,11 +172,14 @@ class Calculator extends Component {
       // * Save the number typed
       this.saveNumber(item, operand1);
     } else if (this.isOperator(item)) {
-      if (operator === "") {
+      if (operand1 !== "" && operator === "") {
         // * Save operator
         this.saveOperator(item, operand1);
-      } else {
+      } else if (operand1 === "" && operand2 === "" && operator === "") {
+        this.saveOperator(item, operand1);
+      } else if (operator !== "") {
         // * Pre calculate
+        this.savePreAnswer(operand1, operand2, operator, item);
       }
     } else if (item === "=") {
       // * Nothing
@@ -165,9 +188,18 @@ class Calculator extends Component {
       // * Syntasis Err
       else if (
         (operand1 === "" && operand2 === "" && operator !== "") ||
-        (operand1 === "" && operand2 !== "" && operator !== "")
+        (operand1 === "" && operand2 !== "" && operator !== "") ||
+        (operand1 !== "" && operand2 === "" && operator === "*") ||
+        (operand1 !== "" && operand2 === "" && operator === "/")
       ) {
         this.syntasisError();
+      }
+      // * sum or rest grant
+      else if (
+        (operand1 !== "" && operand2 === "" && operator === "+") ||
+        (operand1 !== "" && operand2 === "" && operator === "-")
+      ) {
+        this.saveAnswer(operand1, "0", operator);
       }
       // * Calculate answer
       else if (operand1 !== "" && operand2 !== "" && operator !== "") {
