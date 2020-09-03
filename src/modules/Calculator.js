@@ -152,6 +152,16 @@ class Calculator extends Component {
     });
   };
 
+  clearNumber = () => {
+    this.setState({ operand1: "", ans: "_" });
+  };
+
+  changeSign = (operand1) => {
+    var temp = (-1 * Number(operand1)).toString();
+
+    this.setState({ operand1: temp, ans: temp });
+  };
+
   removeNumber = (operand1) => {
     if (operand1.length !== 0) {
       operand1 = operand1.substring(0, operand1.length - 1);
@@ -209,6 +219,10 @@ class Calculator extends Component {
       this.clearAll();
     } else if (item === "Del") {
       this.removeNumber(operand1);
+    } else if (item === "C") {
+      this.clearNumber();
+    } else if (item === "+/-" && operand1 !== "") {
+      this.changeSign(operand1);
     }
   };
 
