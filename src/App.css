@@ -1,10 +1,16 @@
+@font-face {
+  font-family: "digital";
+  src: url("digital-7.ttf");
+}
+
 .App {
   text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 10vmin;
   pointer-events: none;
+  vertical-align: middle;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -14,14 +20,16 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: center; */
   font-size: calc(10px + 2vmin);
   color: white;
+  padding-top: 1em;
+}
+
+body {
+  background-color: #282c34;
 }
 
 .App-link {
@@ -44,8 +52,13 @@
   transform: translate(-50%, -50%);
   left: 50%;
   top: 50%;
-  /*background-color: #465063;*/
+  border: solid 1px #1a344e;
 }
+
+#container {
+  background-image: linear-gradient(to top, #375277, #3565a3, #375277);
+}
+
 #container::before {
   content: "";
   /* width: 40px;
@@ -58,22 +71,42 @@
 }
 
 button {
-  padding: 20px;
-  width: 70px;
-  font-size: 1.3em;
-  /* visibility: hidden; */
+  width: 55px;
+  height: 55px;
+  margin: 5px;
+  border: 1px solid rgb(212, 203, 203);
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 1.1em;
+  background-color: #9e9999;
+  color: #ffffff;
 }
 
-input {
-  font-size: 1.4em;
-  margin: 5px;
-  padding: 10px;
-  text-align: right;
-  border: 2px solid #717479;
+.control {
+  background-color: #615a5a;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.answer {
+  background-color: #6197fbd3;
 }
 
 #display {
   text-align: right;
-  font-size: 1.3em;
-  width: 100%;
+  font-family: digital;
+  font-size: 1.7em;
+  border: 1px double #fdfdfd;
+  margin: 10px auto;
+  padding: 10px;
+  letter-spacing: 0.1em;
+  width: 80%;
+  border-radius: 4px;
+  background-color: #cbcec6;
+  color: #1a2c4b;
+  box-shadow: -1px -1px #141214, 1px 1px #141214;
+}
+
+div {
+  border: solid red 0px;
 }

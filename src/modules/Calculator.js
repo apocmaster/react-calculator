@@ -230,19 +230,28 @@ class Calculator extends Component {
     return (
       <div id="container">
         <div>
-          <textarea
-            id="display"
-            rows="2"
-            cols="20"
-            value={this.state.ans}
-            readOnly
-          />
+          <input type="text" id="display" value={this.state.ans} readOnly />
         </div>
         <div>
           <div>
-            <button onClick={this.buttonHandler.bind(this, "CE")}>CE</button>
-            <button onClick={this.buttonHandler.bind(this, "C")}>C</button>
-            <button onClick={this.buttonHandler.bind(this, "Del")}>Del</button>
+            <button
+              className="control"
+              onClick={this.buttonHandler.bind(this, "CE")}
+            >
+              CE
+            </button>
+            <button
+              className="control"
+              onClick={this.buttonHandler.bind(this, "C")}
+            >
+              C
+            </button>
+            <button
+              className="control"
+              onClick={this.buttonHandler.bind(this, "Del")}
+            >
+              Del
+            </button>
             <button onClick={this.buttonHandler.bind(this, "/")}>/</button>
           </div>
           <div>
@@ -267,7 +276,12 @@ class Calculator extends Component {
             <button onClick={this.buttonHandler.bind(this, "0")}>0</button>
             <button onClick={this.buttonHandler.bind(this, "+/-")}>+/-</button>
             <button onClick={this.buttonHandler.bind(this, ".")}>.</button>
-            <button onClick={this.buttonHandler.bind(this, "=")}>=</button>
+            <button
+              className="answer"
+              onClick={this.buttonHandler.bind(this, "=")}
+            >
+              =
+            </button>
           </div>
         </div>
       </div>
