@@ -186,7 +186,7 @@ class Calculator extends Component {
         // * Save operator
         this.saveOperator(item, operand1);
       } else if (operand1 === "" && operand2 === "" && operator === "") {
-        this.saveOperator(item, operand1);
+        this.saveOperator(item, operand1, true);
       } else if (operator !== "") {
         // * Pre calculate
         this.savePreAnswer(operand1, operand2, operator, item);
