@@ -64,6 +64,12 @@ body {
   color: #ffffff;
 }
 
+.button:hover {
+  transition-property: background-color;
+  transition-duration: 0.75s;
+  background-color: #49aab5;
+}
+
 .control {
   background-color: #615a5a;
   border: 1px solid gray;
